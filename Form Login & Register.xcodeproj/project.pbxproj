@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		AB508B3C272F57CC0083DE6D /* Form_Login___RegisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB508B3B272F57CC0083DE6D /* Form_Login___RegisterApp.swift */; };
-		AB508B3E272F57CC0083DE6D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB508B3D272F57CC0083DE6D /* ContentView.swift */; };
+		AB508B3E272F57CC0083DE6D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB508B3D272F57CC0083DE6D /* LoginView.swift */; };
 		AB508B40272F57CD0083DE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB508B3F272F57CD0083DE6D /* Assets.xcassets */; };
 		AB508B43272F57CD0083DE6D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB508B42272F57CD0083DE6D /* Preview Assets.xcassets */; };
+		AB9980392786761F00E435E5 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9980382786761F00E435E5 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AB508B38272F57CC0083DE6D /* Form Login & Register.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Form Login & Register.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB508B3B272F57CC0083DE6D /* Form_Login___RegisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Form_Login___RegisterApp.swift"; sourceTree = "<group>"; };
-		AB508B3D272F57CC0083DE6D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB508B3D272F57CC0083DE6D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB508B3F272F57CD0083DE6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB508B42272F57CD0083DE6D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB508B44272F57CD0083DE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB9980382786761F00E435E5 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +54,9 @@
 		AB508B3A272F57CC0083DE6D /* Form Login & Register */ = {
 			isa = PBXGroup;
 			children = (
+				AB9980372786760B00E435E5 /* ViewModels */,
+				AB998036278675BF00E435E5 /* Views */,
 				AB508B3B272F57CC0083DE6D /* Form_Login___RegisterApp.swift */,
-				AB508B3D272F57CC0083DE6D /* ContentView.swift */,
 				AB508B3F272F57CD0083DE6D /* Assets.xcassets */,
 				AB508B44272F57CD0083DE6D /* Info.plist */,
 				AB508B41272F57CD0083DE6D /* Preview Content */,
@@ -67,6 +70,22 @@
 				AB508B42272F57CD0083DE6D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB998036278675BF00E435E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB508B3D272F57CC0083DE6D /* LoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AB9980372786760B00E435E5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AB9980382786761F00E435E5 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB508B3E272F57CC0083DE6D /* ContentView.swift in Sources */,
+				AB508B3E272F57CC0083DE6D /* LoginView.swift in Sources */,
 				AB508B3C272F57CC0083DE6D /* Form_Login___RegisterApp.swift in Sources */,
+				AB9980392786761F00E435E5 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

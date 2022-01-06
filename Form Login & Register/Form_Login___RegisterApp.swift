@@ -6,7 +6,7 @@ import SwiftUI
 struct ___PACKAGENAME: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
