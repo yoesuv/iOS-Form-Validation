@@ -12,8 +12,27 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            VStack {
+                Form {
+                    Section(header: Text("Email")) {
+                        TextField("Email", text: $viewModel.email)
+                            .autocapitalization(.none)
+                    }
+                    Section(header: Text("Password")) {
+                        SecureField("Password", text: $viewModel.password)
+                    }
+                }
+                Button(action: {
+                    
+                }, label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(height: 60)
+                        .overlay(Text("LOGIN").foregroundColor(.white))
+                        .padding()
+                })
+            }
+        }
     }
 }
 
