@@ -12,9 +12,11 @@
 		AB508B40272F57CD0083DE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB508B3F272F57CD0083DE6D /* Assets.xcassets */; };
 		AB508B43272F57CD0083DE6D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB508B42272F57CD0083DE6D /* Preview Assets.xcassets */; };
 		AB9980392786761F00E435E5 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9980382786761F00E435E5 /* LoginViewModel.swift */; };
+		ABC4656A27881D1C00017D80 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC4656927881D1C00017D80 /* RegisterViewModel.swift */; };
 		ABFBE6462787B773004A5958 /* LoginStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE6452787B773004A5958 /* LoginStatus.swift */; };
 		ABFBE6492787CB79004A5958 /* TextFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE6482787CB79004A5958 /* TextFooter.swift */; };
 		ABFBE64C2787E6C9004A5958 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE64B2787E6C9004A5958 /* Constants.swift */; };
+		ABFBE64E2787F787004A5958 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBE64D2787F787004A5958 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +27,11 @@
 		AB508B42272F57CD0083DE6D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB508B44272F57CD0083DE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB9980382786761F00E435E5 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		ABC4656927881D1C00017D80 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		ABFBE6452787B773004A5958 /* LoginStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStatus.swift; sourceTree = "<group>"; };
 		ABFBE6482787CB79004A5958 /* TextFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFooter.swift; sourceTree = "<group>"; };
 		ABFBE64B2787E6C9004A5958 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ABFBE64D2787F787004A5958 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				AB508B3D272F57CC0083DE6D /* LoginView.swift */,
+				ABFBE64D2787F787004A5958 /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -93,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				AB9980382786761F00E435E5 /* LoginViewModel.swift */,
+				ABC4656927881D1C00017D80 /* RegisterViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -193,6 +199,8 @@
 				AB508B3E272F57CC0083DE6D /* LoginView.swift in Sources */,
 				ABFBE6462787B773004A5958 /* LoginStatus.swift in Sources */,
 				ABFBE6492787CB79004A5958 /* TextFooter.swift in Sources */,
+				ABC4656A27881D1C00017D80 /* RegisterViewModel.swift in Sources */,
+				ABFBE64E2787F787004A5958 /* RegisterView.swift in Sources */,
 				AB508B3C272F57CC0083DE6D /* Form_Login___RegisterApp.swift in Sources */,
 				AB9980392786761F00E435E5 /* LoginViewModel.swift in Sources */,
 				ABFBE64C2787E6C9004A5958 /* Constants.swift in Sources */,

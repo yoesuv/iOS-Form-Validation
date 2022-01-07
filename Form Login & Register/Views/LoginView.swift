@@ -32,6 +32,7 @@ struct LoginView: View {
                             SecureField("Password", text: $viewModel.password)
                         })
                 }
+                
                 Button(action: {
                     
                 }, label: {
@@ -42,6 +43,9 @@ struct LoginView: View {
                 })
                 .padding()
                 .disabled(!$viewModel.isFormValid.wrappedValue)
+                NavigationLink(destination: RegisterView()) {
+                    Text("Register")
+                }
             }
             .navigationBarTitle("Login")
         }
