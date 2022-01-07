@@ -20,15 +20,17 @@ struct LoginView: View {
                         footer: TextFooter(message: $viewModel.inlineErrorEmail.wrappedValue),
                         content: {
                             TextField("Email", text: $viewModel.email)
-                            .autocapitalization(.none)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
                             
                         })
                     Section(
                         header: Text("Password"),
-                        footer: TextFooter(message: "password error"),
+                        footer: TextFooter(message: $viewModel.inlineErrorPassword.wrappedValue),
                         content: {
-                        SecureField("Password", text: $viewModel.password)
-                    })
+                            SecureField("Password", text: $viewModel.password)
+                            
+                        })
                 }
                 Button(action: {
                     

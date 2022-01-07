@@ -11,6 +11,6 @@ enum LoginStatus {
     case emailEmpty
     case emailNotValid
     case passwordEmpty
-    case passwordNotValid
+    case passwordMinLegth
     case isValid
 }

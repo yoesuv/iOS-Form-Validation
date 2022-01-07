@@ -41,6 +41,24 @@ class LoginViewModel: ObservableObject {
             }
             .assign(to: \.inlineErrorEmail, on: self)
             .store(in: &cancelables)
+        
+        passwordStatusPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map { passwordStatus in
+                    switch passwordStatus {
+                    case .passwordEmpty:
+                        return "password is empty"
+                    case .passwordMinLegth:
+                        return "password min 5 character"
+                    case .isValid:
+                        return ""
+                    default:
+                        return ""
+                }
+            }
+            .assign(to: \.inlineErrorPassword, on: self)
+            .store(in: &cancelables)
     }
     
     // MARK: Begin Validation Email
@@ -87,7 +105,7 @@ class LoginViewModel: ObservableObject {
         Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordMinValidPublisher)
             .map {
                 if $0 { return LoginStatus.passwordEmpty }
-                if $1 { return LoginStatus.passwordNotValid }
+                if $1 { return LoginStatus.passwordMinLegth }
                 return LoginStatus.isValid
             }
             .eraseToAnyPublisher()
