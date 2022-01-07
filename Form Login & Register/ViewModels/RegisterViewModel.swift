@@ -19,6 +19,7 @@ class RegisterViewModel: ObservableObject {
     
     @Published var inlineErrorFullName: String = ""
     @Published var inlineErrorEmail: String = ""
+    @Published var inlineErrorPassword: String = ""
     
     private var cancelables = Set<AnyCancellable>()
     
@@ -57,6 +58,24 @@ class RegisterViewModel: ObservableObject {
                 }
             }
             .assign(to: \.inlineErrorEmail, on: self)
+            .store(in: &cancelables)
+        
+        passwordStatusPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map { passwordStatus in
+                    switch passwordStatus {
+                    case .passwordEmpty:
+                        return "password is empty"
+                    case .passwordMinLegth:
+                        return "password min 5 character"
+                    case .isValid:
+                        return ""
+                    default:
+                        return ""
+                }
+            }
+            .assign(to: \.inlineErrorPassword, on: self)
             .store(in: &cancelables)
     }
     
@@ -109,5 +128,31 @@ class RegisterViewModel: ObservableObject {
             }
             .eraseToAnyPublisher()
     }
+    
+    // MARK: Begin validation Password
+    private var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> {
+        $password.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map{ $0.isEmpty }
+            .eraseToAnyPublisher()
+    }
+    
+    private var isPasswordMinValidPublisher: AnyPublisher<Bool, Never> {
+        $password.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map{ $0.count < 5 }
+            .eraseToAnyPublisher()
+    }
+    
+    private var passwordStatusPublisher: AnyPublisher<RegisterStatus, Never> {
+        Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordMinValidPublisher)
+            .map {
+                if $0 { return RegisterStatus.passwordEmpty }
+                if $1 { return RegisterStatus.passwordMinLegth }
+                return RegisterStatus.isValid
+            }
+            .eraseToAnyPublisher()
+    }
+    
     
 }

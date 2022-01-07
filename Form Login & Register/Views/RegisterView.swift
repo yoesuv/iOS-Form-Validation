@@ -34,7 +34,7 @@ struct RegisterView: View {
                     })
                 Section(
                     header: Text("Password"),
-                    footer: TextFooter(message: ""),
+                    footer: TextFooter(message: $viewModel.inlineErrorPassword.wrappedValue),
                     content: {
                         SecureField("Password", text: $viewModel.password)
                     })
