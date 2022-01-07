@@ -17,9 +17,12 @@ class LoginViewModel: ObservableObject {
     private var cancelables = Set<AnyCancellable>()
     
     init() {
-        
+        isFormValidPublisher.receive(on: RunLoop.main)
+            .assign(to: \.isFormValid, on: self)
+            .store(in: &cancelables)
     }
     
+    // MARK: Begin Validation Email
     private var isEmailEmptyPublisher: AnyPublisher<Bool, Never> {
         $email.debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
@@ -34,7 +37,18 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
+    private var emailStatusPublisher: AnyPublisher<LoginStatus, Never> {
+        Publishers.CombineLatest(isEmailEmptyPublisher, isEmailValidPublisher)
+            .map {
+                if $0 { return LoginStatus.emailEmpty }
+                if $1 { return LoginStatus.emailNotValid }
+                return LoginStatus.isValid
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // MARK: Begin validation Password
+    private var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> {
         $password.debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.isEmpty }
@@ -48,8 +62,8 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isEmailStatusPublisher: AnyPublisher<LoginStatus, Never> {
-        Publishers.CombineLatest(isPasswordValidPublisher, isPasswordMinValidPublisher)
+    private var passwordStatusPublisher: AnyPublisher<LoginStatus, Never> {
+        Publishers.CombineLatest(isPasswordEmptyPublisher, isPasswordMinValidPublisher)
             .map {
                 if $0 { return LoginStatus.passwordEmpty }
                 if $1 { return LoginStatus.passwordNotValid }
@@ -58,15 +72,13 @@ class LoginViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isPasswordStatusPublisher: AnyPublisher<LoginStatus, Never> {
-        Publishers.CombineLatest(isEmailEmptyPublisher, isEmailValidPublisher)
+    // MARK: Valifation Form email & password
+    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest(emailStatusPublisher, passwordStatusPublisher)
             .map {
-                if $0 { return LoginStatus.emailEmpty }
-                if $1 { return LoginStatus.emailNotValid }
-                return LoginStatus.isValid
+                $0 == LoginStatus.isValid && $1 == LoginStatus.isValid
             }
             .eraseToAnyPublisher()
     }
-    
     
 }
