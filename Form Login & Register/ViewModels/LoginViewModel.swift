@@ -45,14 +45,14 @@ class LoginViewModel: ObservableObject {
     
     // MARK: Begin Validation Email
     private var isEmailEmptyPublisher: AnyPublisher<Bool, Never> {
-        $email.debounce(for: 0.1, scheduler: RunLoop.main)
+        $email.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.isEmpty }
             .eraseToAnyPublisher()
     }
     
     private var isEmailValidPublisher: AnyPublisher<Bool, Never> {
-        $email.debounce(for: 0.1, scheduler: RunLoop.main)
+        $email.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.count < 5 }
             .eraseToAnyPublisher()
@@ -70,14 +70,14 @@ class LoginViewModel: ObservableObject {
     
     // MARK: Begin validation Password
     private var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> {
-        $password.debounce(for: 0.8, scheduler: RunLoop.main)
+        $password.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.isEmpty }
             .eraseToAnyPublisher()
     }
     
     private var isPasswordMinValidPublisher: AnyPublisher<Bool, Never> {
-        $password.debounce(for: 0.8, scheduler: RunLoop.main)
+        $password.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.count < 5 }
             .eraseToAnyPublisher()
