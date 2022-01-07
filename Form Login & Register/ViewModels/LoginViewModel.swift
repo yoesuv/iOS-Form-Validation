@@ -72,7 +72,7 @@ class LoginViewModel: ObservableObject {
     private var isEmailValidPublisher: AnyPublisher<Bool, Never> {
         $email.debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map{ $0.count < 5 }
+            .map{ Constants.emailPredicate.evaluate(with: $0) }
             .eraseToAnyPublisher()
     }
     
@@ -80,7 +80,7 @@ class LoginViewModel: ObservableObject {
         Publishers.CombineLatest(isEmailEmptyPublisher, isEmailValidPublisher)
             .map {
                 if $0 { return LoginStatus.emailEmpty }
-                if $1 { return LoginStatus.emailNotValid }
+                if !$1 { return LoginStatus.emailNotValid }
                 return LoginStatus.isValid
             }
             .eraseToAnyPublisher()
