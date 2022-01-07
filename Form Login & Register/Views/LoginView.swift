@@ -22,6 +22,7 @@ struct LoginView: View {
                             TextField("Email", text: $viewModel.email)
                                 .disableAutocorrection(true)
                                 .autocapitalization(.none)
+                                .keyboardType(.emailAddress)
                             
                         })
                     Section(
@@ -29,7 +30,6 @@ struct LoginView: View {
                         footer: TextFooter(message: $viewModel.inlineErrorPassword.wrappedValue),
                         content: {
                             SecureField("Password", text: $viewModel.password)
-                            
                         })
                 }
                 Button(action: {
@@ -43,6 +43,7 @@ struct LoginView: View {
                 .padding()
                 .disabled(!$viewModel.isFormValid.wrappedValue)
             }
+            .navigationBarTitle("Login")
         }
     }
 }
