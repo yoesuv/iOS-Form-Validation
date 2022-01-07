@@ -14,5 +14,6 @@ enum RegisterStatus {
     case emailNotValid
     case passwordEmpty
     case passwordMinLegth
+    case passwordDidNotMatch
     case isValid
 }

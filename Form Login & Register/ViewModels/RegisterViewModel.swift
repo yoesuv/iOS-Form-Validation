@@ -20,6 +20,7 @@ class RegisterViewModel: ObservableObject {
     @Published var inlineErrorFullName: String = ""
     @Published var inlineErrorEmail: String = ""
     @Published var inlineErrorPassword: String = ""
+    @Published var inlineErrorConfirmPassword: String = ""
     
     private var cancelables = Set<AnyCancellable>()
     
@@ -64,7 +65,7 @@ class RegisterViewModel: ObservableObject {
             .dropFirst()
             .receive(on: RunLoop.main)
             .map { passwordStatus in
-                    switch passwordStatus {
+                switch passwordStatus {
                     case .passwordEmpty:
                         return "password is empty"
                     case .passwordMinLegth:
@@ -76,6 +77,22 @@ class RegisterViewModel: ObservableObject {
                 }
             }
             .assign(to: \.inlineErrorPassword, on: self)
+            .store(in: &cancelables)
+        
+        passwordMatchPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map { confirmPasswordStatus in
+                switch confirmPasswordStatus {
+                    case .passwordDidNotMatch:
+                        return "password did not match"
+                    case .isValid:
+                        return ""
+                    default:
+                        return ""
+                }
+            }
+            .assign(to: \.inlineErrorConfirmPassword, on: self)
             .store(in: &cancelables)
     }
     
@@ -154,5 +171,14 @@ class RegisterViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    private var passwordMatchPublisher: AnyPublisher<RegisterStatus, Never> {
+        Publishers.CombineLatest($password, $confirmPassword)
+            .debounce(for: Constants.debounceTime, scheduler: RunLoop.main)
+            .map {
+                if ($0 != $1) { return RegisterStatus.passwordDidNotMatch }
+                return RegisterStatus.isValid
+            }
+            .eraseToAnyPublisher()
+    }
     
 }

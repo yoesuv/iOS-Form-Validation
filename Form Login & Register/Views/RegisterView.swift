@@ -40,7 +40,7 @@ struct RegisterView: View {
                     })
                 Section(
                     header: Text("Confirm Password"),
-                    footer: TextFooter(message: ""),
+                    footer: TextFooter(message: $viewModel.inlineErrorConfirmPassword.wrappedValue),
                     content: {
                         SecureField("Confirm Password", text: $viewModel.confirmPassword)
                     })
