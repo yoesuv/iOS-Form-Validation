@@ -29,8 +29,10 @@ struct LoginView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(height: 60)
                         .overlay(Text("LOGIN").foregroundColor(.white))
-                        .padding()
+                        
                 })
+                .padding()
+                .disabled(!$viewModel.isValid.wrappedValue)
             }
         }
     }
