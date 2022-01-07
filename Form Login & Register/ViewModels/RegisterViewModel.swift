@@ -25,6 +25,11 @@ class RegisterViewModel: ObservableObject {
     private var cancelables = Set<AnyCancellable>()
     
     init() {
+        isFormValidPublisher
+            .receive(on: RunLoop.main)
+            .assign(to: \.isFormValid, on: self)
+            .store(in: &cancelables)
+    
         fullNameStatusPublisher
             .dropFirst()
             .receive(on: RunLoop.main)
@@ -177,6 +182,15 @@ class RegisterViewModel: ObservableObject {
             .map {
                 if ($0 != $1) { return RegisterStatus.passwordDidNotMatch }
                 return RegisterStatus.isValid
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // MARK: Valifation Form email & password
+    private var isFormValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest4(fullNameStatusPublisher, emailStatusPublisher, passwordStatusPublisher, passwordMatchPublisher)
+            .map {
+                $0 == RegisterStatus.isValid && $1 == RegisterStatus.isValid && $2 == RegisterStatus.isValid && $3 == RegisterStatus.isValid
             }
             .eraseToAnyPublisher()
     }
