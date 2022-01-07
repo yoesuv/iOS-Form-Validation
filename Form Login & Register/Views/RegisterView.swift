@@ -16,15 +16,15 @@ struct RegisterView: View {
             Form {
                 Section(
                     header: Text("Full Name"),
-                    footer: TextFooter(message: ""),
+                    footer: TextFooter(message: $viewModel.inlineErrorFullName.wrappedValue),
                     content: {
-                        TextField("Email", text: $viewModel.fullName)
+                        TextField("Full Name", text: $viewModel.fullName)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
                     })
                 Section(
                     header: Text("Email"),
-                    footer: TextFooter(message: ""),
+                    footer: TextFooter(message: $viewModel.inlineErrorEmail.wrappedValue),
                     content: {
                         TextField("Email", text: $viewModel.email)
                             .disableAutocorrection(true)
