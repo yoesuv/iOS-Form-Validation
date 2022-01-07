@@ -15,13 +15,20 @@ struct LoginView: View {
         NavigationView {
             VStack {
                 Form {
-                    Section(header: Text("Email")) {
-                        TextField("Email", text: $viewModel.email)
+                    Section(
+                        header: Text("Email"),
+                        footer: TextFooter(message: $viewModel.inlineErrorEmail.wrappedValue),
+                        content: {
+                            TextField("Email", text: $viewModel.email)
                             .autocapitalization(.none)
-                    }
-                    Section(header: Text("Password")) {
+                            
+                        })
+                    Section(
+                        header: Text("Password"),
+                        footer: TextFooter(message: "password error"),
+                        content: {
                         SecureField("Password", text: $viewModel.password)
-                    }
+                    })
                 }
                 Button(action: {
                     
@@ -32,7 +39,7 @@ struct LoginView: View {
                         
                 })
                 .padding()
-                .disabled(!$viewModel.isValid.wrappedValue)
+                .disabled(!$viewModel.isFormValid.wrappedValue)
             }
         }
     }

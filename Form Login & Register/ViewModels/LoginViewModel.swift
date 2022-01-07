@@ -14,26 +14,47 @@ class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var isFormValid: Bool = false
     
+    @Published var inlineErrorEmail: String = ""
+    @Published var inlineErrorPassword: String = ""
+    
     private var cancelables = Set<AnyCancellable>()
     
     init() {
         isFormValidPublisher.receive(on: RunLoop.main)
             .assign(to: \.isFormValid, on: self)
             .store(in: &cancelables)
+        
+        emailStatusPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map { emailStatus in
+                switch emailStatus {
+                    case .emailEmpty:
+                        return "email is empty"
+                    case .emailNotValid:
+                        return "email is not valid"
+                    case .isValid:
+                        return ""
+                    default:
+                        return ""
+                }
+            }
+            .assign(to: \.inlineErrorEmail, on: self)
+            .store(in: &cancelables)
     }
     
     // MARK: Begin Validation Email
     private var isEmailEmptyPublisher: AnyPublisher<Bool, Never> {
-        $email.debounce(for: 0.8, scheduler: RunLoop.main)
+        $email.debounce(for: 0.1, scheduler: RunLoop.main)
             .removeDuplicates()
             .map{ $0.isEmpty }
             .eraseToAnyPublisher()
     }
     
     private var isEmailValidPublisher: AnyPublisher<Bool, Never> {
-        $email.debounce(for: 0.8, scheduler: RunLoop.main)
+        $email.debounce(for: 0.1, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map{ $0.count >= 3 }
+            .map{ $0.count < 5 }
             .eraseToAnyPublisher()
     }
     
@@ -58,7 +79,7 @@ class LoginViewModel: ObservableObject {
     private var isPasswordMinValidPublisher: AnyPublisher<Bool, Never> {
         $password.debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map{ $0.count > 4 }
+            .map{ $0.count < 5 }
             .eraseToAnyPublisher()
     }
     
