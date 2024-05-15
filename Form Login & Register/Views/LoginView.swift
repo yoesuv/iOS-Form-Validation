@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject private var viewModel = LoginViewModel()
+    @State private var showCredential = false
     
     var body: some View {
         NavigationView {
@@ -34,12 +35,12 @@ struct LoginView: View {
                 }
                 
                 Button(action: {
-                    
+                    showCredential = true
                 }, label: {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(height: 60)
                         .overlay(Text("LOGIN").foregroundColor(.white))
-                        
+                    
                 })
                 .padding()
                 .disabled(!$viewModel.isFormValid.wrappedValue)
@@ -48,6 +49,9 @@ struct LoginView: View {
                 }
             }
             .navigationBarTitle("Login")
+            .alert(isPresented: $showCredential, content: {
+                Alert(title: Text("Login"), message: Text("\(viewModel.email) & \(viewModel.password)"))
+            })
         }
     }
 }
